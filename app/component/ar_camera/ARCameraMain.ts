@@ -34,6 +34,8 @@ export class ARCameraMain {
         });
         this._app = app;
         this._canvas_holder.appendChild(app.canvas);
+        app.canvas.style.position = 'absolute';
+        app.canvas.style.zIndex = '0';
 
 
         try {

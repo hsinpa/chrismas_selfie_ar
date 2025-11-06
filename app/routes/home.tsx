@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import start_btn_img from '../assets/sprite/01_btn_start.png'
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +10,18 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Welcome />;
+
+  return (
+  <div className="bg-[url('/images/01_landing_bg.jpg')] bg-cover bg-center h-screen
+  flex flex-col justify-end items-center py-8">
+
+    <Link to='/intro_page'>
+        <img src={start_btn_img}
+        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+    ></img>
+    </Link>
+  </div>
+  );
+
+
 }
