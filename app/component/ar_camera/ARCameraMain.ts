@@ -17,7 +17,6 @@ export class ARCameraMain {
         let _ = this._initialize();
     }
 
-
     private async _initialize() {
         await this.setupWebcamTexture();
     }
@@ -36,7 +35,6 @@ export class ARCameraMain {
         this._canvas_holder.appendChild(app.canvas);
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
-
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
@@ -84,4 +82,12 @@ export class ARCameraMain {
         });
 
     }
+
+    public async captureAsImage(): Promise<string> {
+        if (!this._app) throw new Error('App not initialized');
+    
+        const base64 = await this._app.renderer.extract.base64(this._app.stage);
+        return base64;
+    }
+
 }
