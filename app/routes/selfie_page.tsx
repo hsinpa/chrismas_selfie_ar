@@ -29,7 +29,7 @@ export default function SelfiePage() {
         )}
 
         <button onClick={save_image_to_device}
-            className="w-64 px-8 py-3 bg-gradient-to-b from-[#E78756] to-orange-600 text-white text-2xl font-bold rounded-full cursor-pointer hover:scale-105 transition-transform shadow-lg text-center"
+            className="w-64 px-8 py-3 bg-linear-to-b from-[#E78756] to-orange-600 text-white text-2xl font-bold rounded-full cursor-pointer hover:scale-105 transition-transform shadow-lg text-center"
         >下載並分享</button>
 
         <Link to='/ar_camera'
