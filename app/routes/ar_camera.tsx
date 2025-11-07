@@ -51,6 +51,7 @@ export default function ARCameraComp() {
                         let capture_base64 = await ar_camera_main?.captureAsImage();
                         if (capture_base64 != null) {
                             set_selfie(capture_base64);
+                            ar_camera_main?.dispose();
                             navigate("/selfie_page");
                         }
                     }}

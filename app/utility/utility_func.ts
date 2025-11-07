@@ -50,3 +50,9 @@ export function base64ToBlob(base64: string): Blob {
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: mimeType });
 }
+
+export function formatString(string: string, params: any[]) {
+    return string.replace(/{(\d+)}/g, (match, index) => {
+      return typeof params[index] !== 'undefined' ? params[index] : match;
+    });
+}

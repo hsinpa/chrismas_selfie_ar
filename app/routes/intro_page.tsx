@@ -27,11 +27,10 @@ export default function IntroPage() {
     </div>
 
     <Link to='/draw_gift'>
-
-    <img src={next_btn_img}
-        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
-    ></img>
-  </Link>
+      <img src={next_btn_img}
+          className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+      ></img>
+    </Link>
 
   </div>
   );

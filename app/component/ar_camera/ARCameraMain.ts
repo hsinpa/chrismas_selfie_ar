@@ -90,4 +90,21 @@ export class ARCameraMain {
         return base64;
     }
 
+    public dispose() {
+        if (this._videoDom && this._videoDom.srcObject) {
+            const stream = this._videoDom.srcObject as MediaStream;
+            stream.getTracks().forEach(track => track.stop());
+            this._videoDom.srcObject = null;
+        }
+
+        // Destroy the PixiJS application
+        if (this._app) {
+            this._app.destroy(true, {
+                children: true,
+                texture: true,
+                textureSource: true
+            });
+            this._app = null;
+        }
+    }
 }
