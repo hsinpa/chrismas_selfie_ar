@@ -56,3 +56,11 @@ export function formatString(string: string, params: any[]) {
       return typeof params[index] !== 'undefined' ? params[index] : match;
     });
 }
+
+export function getRandomItem<T>(array: T[]): T {
+  if (array.length === 0) {
+    throw new Error('Array is empty');
+  }
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}

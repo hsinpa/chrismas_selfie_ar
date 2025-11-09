@@ -45,7 +45,10 @@ export class ARCameraMain {
             this._videoDom.muted = true;
             this._videoDom.playsInline = true;
 
-            // Wait for video to be ready
+            await new Promise<void>((resolve) => {
+                this._videoDom.addEventListener('loadedmetadata', () => resolve(), { once: true });
+            });
+
             await this._videoDom.play();
 
             // Create video texture and sprite

@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import btn_camera from '../assets/sprite/btn_camera.png'
-import { formatString } from '~/utility/utility_func';
+import { formatString, getRandomItem } from '~/utility/utility_func';
+import { PRIZES_STATIC } from '~/utility/prize_static';
 
 let pre_background = "/images/03_opening_bg.jpg";
 let after_background = "/images/04_giftresult_bg.jpg";
@@ -14,22 +15,28 @@ export default function DrawGiftPage() {
     const [gift_content_text, set_gift_content_text] = useState("開箱中...");
     const navigate = useNavigate();
 
+    const [gift_gif_path, set_gift_gif_path] = useState("images/gift_open.gif");
+    
     useEffect(() => {
         // Set up the timer
         let interval_timeout = null;
         let time_remain = 5;
 
+        let next_gift = getRandomItem(PRIZES_STATIC);
+
         const timer = setTimeout(() => {
+            console.log(`images/prizes/${next_gift}.gif`)
             set_gift_given(true);
             set_title_text("恭喜獲得禮物!");
             set_gift_content_text(formatString(gift_to_camera_desc, [time_remain]));
+            set_gift_gif_path(`images/prizes/${next_gift}.png`);
 
             setInterval(() => {
               time_remain -= 1;
               set_gift_content_text(formatString(gift_to_camera_desc, [time_remain]));
 
               if (time_remain <= 0) {
-                navigate('/ar_camera');
+                navigate('/ar_camera?gift=' + encodeURIComponent(next_gift));
               }
             }, 1000);
 
@@ -50,7 +57,7 @@ export default function DrawGiftPage() {
 >
 
     <img 
-        src={btn_camera}
+        src={gift_gif_path}
         alt="Gift"
         className="w-1/2 md:w-1/3"
     />
