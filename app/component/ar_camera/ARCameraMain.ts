@@ -1,4 +1,4 @@
-import { Application, Sprite, Texture } from "pixi.js";
+import { Application, Sprite, Texture, type Renderer } from "pixi.js";
 
 export class ARCameraMain {
 
@@ -25,10 +25,6 @@ export class ARCameraMain {
     }
 
     private async _initialize() {
-        await this.setupWebcamTexture();
-    }
-
-    private async setupWebcamTexture() {
         const app = new Application();
 
         await app.init({
@@ -43,6 +39,11 @@ export class ARCameraMain {
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
 
+
+        await Promise.all([this.setupWebcamTexture(app), this.setupFrameVideoTexture()]);
+    }
+
+    private async setupWebcamTexture(app: Application<Renderer>) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { width: 720, height: 1280, facingMode: 'environment' }
@@ -55,26 +56,36 @@ export class ARCameraMain {
             await new Promise<void>((resolve) => {
                 this._camera_video_dom.addEventListener('loadedmetadata', () => resolve(), { once: true });
             });
-
+                
             await this._camera_video_dom.play();
 
-            this._screen_frame_video_dom.currentTime = 0; // Reset to start
-            await this._screen_frame_video_dom.play();
+            const containerWidth = this._canvas_holder.clientWidth;
+            const containerHeight = this._canvas_holder.clientHeight;
+
+            // Resize PixiJS app to match video
+            app.renderer.resize(containerWidth, containerHeight);
 
             // Create video texture and sprite
-            this._camera_video_sprite = this.setupVideoSprite(this._camera_video_dom);
-            this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom);
+            this._camera_video_sprite = this.setupVideoSprite(this._camera_video_dom, 0);
         } catch (error ) {
             console.error('❌ Unexpected error:', error);
         }
     }
 
-    private setupVideoSprite(video_dom: HTMLVideoElement) {
+    private async setupFrameVideoTexture() {
+            this._screen_frame_video_dom.currentTime = 0; // Reset to start
+            await this._screen_frame_video_dom.play();
+
+            this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom, 1);
+    }
+
+    private setupVideoSprite(video_dom: HTMLVideoElement, z_index :number) {
         if (!this._app) return null;
 
         // Create texture from video element
         const videoTexture = Texture.from(video_dom);
         const videoSprite = new Sprite(videoTexture);
+        videoSprite.zIndex = z_index;
 
         // Scale to cover the entire screen
         const scaleX = this._app.screen.width / video_dom.videoWidth;
