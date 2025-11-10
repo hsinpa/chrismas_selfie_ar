@@ -8,6 +8,7 @@ let pre_background = "/images/03_opening_bg.jpg";
 let after_background = "/images/04_giftresult_bg.jpg";
 
 const gift_to_camera_desc = "跳轉至鏡頭中{0}s...";
+const gift_open_gif = 'images/gift_open.gif';
 
 export default function DrawGiftPage() {
     const [is_gift_given, set_gift_given] = useState(false);  
@@ -15,7 +16,7 @@ export default function DrawGiftPage() {
     const [gift_content_text, set_gift_content_text] = useState("開箱中...");
     const navigate = useNavigate();
 
-    const [gift_gif_path, set_gift_gif_path] = useState("images/gift_open.gif");
+    const [gift_gif_path, set_gift_gif_path] = useState(gift_open_gif);
     
     useEffect(() => {
         // Set up the timer
@@ -23,6 +24,7 @@ export default function DrawGiftPage() {
         let time_remain = 5;
 
         let next_gift = getRandomItem(PRIZES_STATIC);
+        // set_gift_gif_path(`images/prizes/${next_gift}.png`);
 
         const timer = setTimeout(() => {
             console.log(`images/prizes/${next_gift}.gif`)
@@ -41,7 +43,7 @@ export default function DrawGiftPage() {
               }
             }, 1000);
 
-        }, 5000); // 5 seconds
+        }, 2700);
 
         return () => {
             clearTimeout(timer);
@@ -53,14 +55,14 @@ export default function DrawGiftPage() {
 
     return (
 <div 
-    className="bg-cover bg-center h-screen flex flex-col justify-center items-center py-8 relative gap-8"
+    className="bg-cover bg-center h-screen flex flex-col justify-center items-center py-8 relative"
     style={{ backgroundImage: `url('${is_gift_given ? after_background : pre_background}')` }}
 >
 
     <img 
         src={gift_gif_path}
         alt="Gift"
-        className="w-1/2 md:w-1/3"
+        className={` ${(gift_open_gif == gift_gif_path) ? 'w-1/2' : 'w-96'}`}
     />
 
 
