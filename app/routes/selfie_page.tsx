@@ -19,7 +19,7 @@ export default function SelfiePage() {
 
     return (
         <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-cover bg-center h-screen
-        flex flex-col justify-end items-center py-8 gap-3">
+        flex flex-col justify-end items-center py-8 gap-5">
 
         {selfie_source && (
             <img src={selfie_source} alt="Selfie" className="w-auto max-w-3xs md:max-w-sm" />
@@ -35,7 +35,7 @@ export default function SelfiePage() {
 
 
         <Link to='/'
-            className="text-2xl font-bold cursor-pointer hover:scale-105 transition-transform"
+            className="text-white text-2xl font-bold cursor-pointer hover:scale-105 transition-transform"
         >回首頁</Link>
 
         </div>
