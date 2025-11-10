@@ -45,7 +45,7 @@ export class ARCameraMain {
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: { width: 720, height: 1280 }
+                video: { width: 720, height: 1280, facingMode: 'environment' }
             });
 
             this._camera_video_dom.srcObject = stream;
@@ -57,6 +57,9 @@ export class ARCameraMain {
             });
 
             await this._camera_video_dom.play();
+
+            this._screen_frame_video_dom.currentTime = 0; // Reset to start
+            await this._screen_frame_video_dom.play();
 
             // Create video texture and sprite
             this._camera_video_sprite = this.setupVideoSprite(this._camera_video_dom);
