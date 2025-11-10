@@ -1,4 +1,6 @@
-import { Application, Rectangle, Sprite, Texture, type Renderer } from "pixi.js";
+import { Application, Assets, Rectangle, Sprite, Texture, type Renderer } from "pixi.js";
+import type { PixiSpriteConfig } from "~/utility/sprite_type";
+
 
 export class ARCameraMain {
 
@@ -8,12 +10,12 @@ export class ARCameraMain {
 
     private _camera_video_sprite: Sprite | null = null;
     private _screen_frame_video_sprite: Sprite | null = null;
+    private _tree_camera_sprite: Sprite | null = null;
 
     private _width: number;
     private _height: number;
     private _app: Application | null = null;
     
-
     constructor(canvas_holder: HTMLDivElement, camera_video_dom: HTMLVideoElement, screen_frame_video_dom: HTMLVideoElement) {
         this._canvas_holder = canvas_holder;
         this._camera_video_dom = camera_video_dom;
@@ -34,13 +36,16 @@ export class ARCameraMain {
             autoDensity: true,
             preference: 'webgl',
         });
+
         this._app = app;
         this._canvas_holder.appendChild(app.canvas);
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
 
-
-        await Promise.all([this.setupWebcamTexture(app), this.setupFrameVideoTexture()]);
+        await Promise.all([this.setupWebcamTexture(app),
+                            this.setupFrameVideoTexture(),
+                            this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.8 } ) ]);
+        
     }
 
     private async setupWebcamTexture(app: Application<Renderer>) {
@@ -56,7 +61,7 @@ export class ARCameraMain {
             await new Promise<void>((resolve) => {
                 this._camera_video_dom.addEventListener('loadedmetadata', () => resolve(), { once: true });
             });
-                
+            
             await this._camera_video_dom.play();
 
             const containerWidth = this._canvas_holder.clientWidth;
@@ -76,7 +81,7 @@ export class ARCameraMain {
             this._screen_frame_video_dom.currentTime = 0; // Reset to start
             await this._screen_frame_video_dom.play();
 
-            this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom, 1);
+            this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom, 2);
     }
 
     private setupVideoSprite(video_dom: HTMLVideoElement, z_index :number) {
@@ -108,16 +113,42 @@ export class ARCameraMain {
         return videoSprite;
     }
 
+    private async setupFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
+        const texture = await Assets.load(texture_path);
+        const sprite = new Sprite(texture);
+
+        sprite.zIndex = sprite_config.z_index;
+
+        const scaleX = app.screen.width / 1230;
+        const scaleY = app.screen.height / 1920;
+        const scale = Math.max(scaleX, scaleY) * sprite_config.scale; // Use max to cover
+
+        // const scale = sprite_config.scale;
+        
+        sprite.scale.set(scale);
+        sprite.x = (app.screen.width - sprite.getSize().width) / 2;
+        sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+
+        app.stage.addChild(sprite);
+
+        this._tree_camera_sprite = sprite;
+        return sprite;
+    }
+
     public async captureAsImage(): Promise<string> {
         if (!this._app) throw new Error('App not initialized');
     
-            const frame = new Rectangle(
-                0, 
-                0, 
-                this._app.renderer.width, 
-                this._app.renderer.height
-            );
-    
+        const frame = new Rectangle(
+            0, 
+            0, 
+            this._app.renderer.width, 
+            this._app.renderer.height
+        );
+
+        if (this._tree_camera_sprite == null) throw new Error('Tree camera sprite not initialized');
+
+        this._tree_camera_sprite.visible = false;
+
         const base64 = await this._app.renderer.extract.base64({target: this._app.stage, frame: frame});
         return base64;
     }
@@ -141,6 +172,11 @@ export class ARCameraMain {
             this._screen_frame_video_sprite = null;
         }
 
+        if (this._tree_camera_sprite && this._app) {
+            this._app.stage.removeChild(this._tree_camera_sprite);
+            this._tree_camera_sprite.destroy();
+            this._tree_camera_sprite = null;
+        }
 
         // Destroy the PixiJS application
         if (this._app) {

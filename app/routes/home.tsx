@@ -12,7 +12,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-
   return (
   <div className="bg-[url('/images/01_landing_bg.jpg')] bg-cover bg-center h-screen
   flex flex-col justify-end items-center py-8">
@@ -26,6 +25,4 @@ export default function Home() {
     </Link>
   </div>
   );
-
-
 }

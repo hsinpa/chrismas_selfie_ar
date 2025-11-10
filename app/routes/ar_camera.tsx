@@ -15,8 +15,10 @@ export function meta({}: Route.MetaArgs) {
 
 export default function ARCameraComp() {
     const canvasRef = useRef(null);
+
     const cameraVideoRef = useRef(null);
     const screenVideoRef = useRef(null);
+
     const set_selfie = useARCameraStore(x=>x.set_selfie);
     const [ar_camera_main, set_ar_camera] = useState<ARCameraMain | null>(null);
     const navigate = useNavigate();
@@ -45,25 +47,19 @@ export default function ARCameraComp() {
             />
 
         <div className="flex items-center justify-center h-screen overflow-hidden">
-            <div className="relative w-10/12 flex items-center justify-center">
-                <img 
-                    src={xmastree_img} 
-                    className="max-h-[83.333333vh] max-w-full h-auto w-auto object-contain"
-                ></img>
+            <img 
 
-                <img 
-                    onClick={async () => {
-                        let capture_base64 = await ar_camera_main?.captureAsImage();
-                        if (capture_base64 != null) {
-                            set_selfie(capture_base64);
-                            navigate("/selfie_page");
-                        }
-                    }}
-                    src={camera_img} 
-                    className="absolute left-1/2 -translate-x-1/2 cursor-pointer transition-transform hover:scale-110 w-5/12 md:w-48"
-                    style={{bottom: '-3rem' }}
-                ></img>
-            </div>
+                className="absolute bottom-0 left-0 w-full h-1/3 opacity-0 cursor-pointer"
+
+                onClick={async () => {
+                    let capture_base64 = await ar_camera_main?.captureAsImage();
+                    if (capture_base64 != null) {
+                        set_selfie(capture_base64);
+                        navigate("/selfie_page");
+                    }
+                }}
+                src={camera_img} 
+            ></img>
         </div>
 
             <video ref={cameraVideoRef} style={{ display: 'none' }}></video>
