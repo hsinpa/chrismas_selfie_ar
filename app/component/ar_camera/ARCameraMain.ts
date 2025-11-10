@@ -1,4 +1,4 @@
-import { Application, Sprite, Texture, type Renderer } from "pixi.js";
+import { Application, Rectangle, Sprite, Texture, type Renderer } from "pixi.js";
 
 export class ARCameraMain {
 
@@ -111,7 +111,14 @@ export class ARCameraMain {
     public async captureAsImage(): Promise<string> {
         if (!this._app) throw new Error('App not initialized');
     
-        const base64 = await this._app.renderer.extract.base64(this._app.stage);
+            const frame = new Rectangle(
+                0, 
+                0, 
+                this._app.renderer.width, 
+                this._app.renderer.height
+            );
+    
+        const base64 = await this._app.renderer.extract.base64({target: this._app.stage, frame: frame});
         return base64;
     }
 
