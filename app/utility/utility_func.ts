@@ -64,3 +64,22 @@ export function getRandomItem<T>(array: T[]): T {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
 }
+
+export function setupVideoSources(videoDom: HTMLVideoElement, movPath: string, webmPath: string): void {
+    // Clear existing sources
+    videoDom.innerHTML = '';
+    
+    // Add HEVC source for iOS
+    const sourceHEVC = document.createElement('source');
+    sourceHEVC.src = movPath;
+    sourceHEVC.type = 'video/mp4; codecs="hvc1"';
+    videoDom.appendChild(sourceHEVC);
+    
+    // Add VP9 source for others
+    const sourceVP9 = document.createElement('source');
+    sourceVP9.src = webmPath;
+    sourceVP9.type = 'video/webm; codecs="vp9"';
+    videoDom.appendChild(sourceVP9);
+    
+    videoDom.load();
+}

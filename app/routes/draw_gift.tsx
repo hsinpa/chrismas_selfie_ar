@@ -19,7 +19,7 @@ export default function DrawGiftPage() {
     
     useEffect(() => {
         // Set up the timer
-        let interval_timeout = null;
+        let interval_timeout: any = null;
         let time_remain = 5;
 
         let next_gift = getRandomItem(PRIZES_STATIC);
@@ -31,11 +31,12 @@ export default function DrawGiftPage() {
             set_gift_content_text(formatString(gift_to_camera_desc, [time_remain]));
             set_gift_gif_path(`images/prizes/${next_gift}.png`);
 
-            setInterval(() => {
+            interval_timeout = setInterval(() => {
               time_remain -= 1;
               set_gift_content_text(formatString(gift_to_camera_desc, [time_remain]));
 
               if (time_remain <= 0) {
+                clearInterval(interval_timeout);
                 navigate('/ar_camera?gift=' + encodeURIComponent(next_gift));
               }
             }, 1000);

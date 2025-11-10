@@ -3,14 +3,21 @@ import { Application, Sprite, Texture } from "pixi.js";
 export class ARCameraMain {
 
     private _canvas_holder: HTMLDivElement;
-    private _videoDom: HTMLVideoElement;
+    private _camera_video_dom: HTMLVideoElement;
+    private _screen_frame_video_dom: HTMLVideoElement;
+
+    private _camera_video_sprite: Sprite | null = null;
+    private _screen_frame_video_sprite: Sprite | null = null;
+
     private _width: number;
     private _height: number;
     private _app: Application | null = null;
+    
 
-    constructor(canvas_holder: HTMLDivElement, videoDom: HTMLVideoElement) {
+    constructor(canvas_holder: HTMLDivElement, camera_video_dom: HTMLVideoElement, screen_frame_video_dom: HTMLVideoElement) {
         this._canvas_holder = canvas_holder;
-        this._videoDom = videoDom;
+        this._camera_video_dom = camera_video_dom;
+        this._screen_frame_video_dom = screen_frame_video_dom;
         this._width = window.innerWidth;
         this._height = window.innerHeight;
 
@@ -41,41 +48,41 @@ export class ARCameraMain {
                 video: { width: 720, height: 1280 }
             });
 
-            this._videoDom.srcObject = stream;
-            this._videoDom.muted = true;
-            this._videoDom.playsInline = true;
+            this._camera_video_dom.srcObject = stream;
+            this._camera_video_dom.muted = true;
+            this._camera_video_dom.playsInline = true;
 
             await new Promise<void>((resolve) => {
-                this._videoDom.addEventListener('loadedmetadata', () => resolve(), { once: true });
+                this._camera_video_dom.addEventListener('loadedmetadata', () => resolve(), { once: true });
             });
 
-            await this._videoDom.play();
+            await this._camera_video_dom.play();
 
             // Create video texture and sprite
-            this.setupVideoSprite();
-
+            this._camera_video_sprite = this.setupVideoSprite(this._camera_video_dom);
+            this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom);
         } catch (error ) {
             console.error('❌ Unexpected error:', error);
         }
     }
 
-    private setupVideoSprite() {
-        if (!this._app) return;
+    private setupVideoSprite(video_dom: HTMLVideoElement) {
+        if (!this._app) return null;
 
         // Create texture from video element
-        const videoTexture = Texture.from(this._videoDom);
+        const videoTexture = Texture.from(video_dom);
         const videoSprite = new Sprite(videoTexture);
 
         // Scale to cover the entire screen
-        const scaleX = this._app.screen.width / this._videoDom.videoWidth;
-        const scaleY = this._app.screen.height / this._videoDom.videoHeight;
+        const scaleX = this._app.screen.width / video_dom.videoWidth;
+        const scaleY = this._app.screen.height / video_dom.videoHeight;
         const scale = Math.max(scaleX, scaleY); // Use max to cover
 
         videoSprite.scale.set(scale);
 
         // Center the video
-        videoSprite.x = (this._app.screen.width - this._videoDom.videoWidth * scale) / 2;
-        videoSprite.y = (this._app.screen.height - this._videoDom.videoHeight * scale) / 2;
+        videoSprite.x = (this._app.screen.width - video_dom.videoWidth * scale) / 2;
+        videoSprite.y = (this._app.screen.height - video_dom.videoHeight * scale) / 2;
 
         this._app.stage.addChild(videoSprite);
 
@@ -84,6 +91,7 @@ export class ARCameraMain {
             videoTexture.source.update();
         });
 
+        return videoSprite;
     }
 
     public async captureAsImage(): Promise<string> {
@@ -94,11 +102,24 @@ export class ARCameraMain {
     }
 
     public dispose() {
-        if (this._videoDom && this._videoDom.srcObject) {
-            const stream = this._videoDom.srcObject as MediaStream;
+        if (this._camera_video_dom && this._camera_video_dom.srcObject) {
+            const stream = this._camera_video_dom.srcObject as MediaStream;
             stream.getTracks().forEach(track => track.stop());
-            this._videoDom.srcObject = null;
+            this._camera_video_dom.srcObject = null;
         }
+
+        if (this._camera_video_sprite && this._app) {
+            this._app.stage.removeChild(this._camera_video_sprite);
+            this._camera_video_sprite.destroy();
+            this._camera_video_sprite = null;
+        }
+
+        if (this._screen_frame_video_sprite && this._app) {
+            this._app.stage.removeChild(this._screen_frame_video_sprite);
+            this._screen_frame_video_sprite.destroy();
+            this._screen_frame_video_sprite = null;
+        }
+
 
         // Destroy the PixiJS application
         if (this._app) {

@@ -1,8 +1,5 @@
 import { useEffect } from "react";
 import { useARCameraStore } from "~/zustand/ar_camera_store";
-
-import download_share_img from '../assets/sprite/07_btn_downloadshare.png'
-import play_again_img from '../assets/sprite/07_btn_playagain.png'
 import { Link } from "react-router";
 import { downloadFromBase64 } from "~/utility/utility_func";
 
