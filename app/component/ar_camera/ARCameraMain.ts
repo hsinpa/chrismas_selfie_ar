@@ -43,6 +43,13 @@ export class ARCameraMain {
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
 
+        
+        const MAX_W = 1080;
+        const MAX_H = 1920;
+        const targetW = Math.min(window.innerWidth, MAX_W);
+        const targetH = Math.min(window.innerHeight, MAX_H);
+        app.renderer.resize(targetW, targetH);
+
         await Promise.all([this.setupWebcamTexture(app),
                             this.setupFrameVideoTexture(),
                             this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.8 } ) ]);
