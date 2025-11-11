@@ -32,9 +32,10 @@ export class ARCameraMain {
         await app.init({
             background: '#000000',
             resizeTo: window,
-            resolution: window.devicePixelRatio || 1,
+            resolution: 1,
             autoDensity: true,
             preference: 'webgl',
+            powerPreference: 'low-power',
         });
 
         this._app = app;
