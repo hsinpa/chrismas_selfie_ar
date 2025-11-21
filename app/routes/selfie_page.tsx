@@ -26,7 +26,7 @@ export default function SelfiePage() {
     }
 
     return (
-        <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-cover bg-center h-screen
+        <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-size-[100%_100%] bg-no-repeat bg-center h-screen
         flex flex-col justify-center items-center py-8">
 
 
@@ -54,9 +54,6 @@ export default function SelfiePage() {
         <span className="block text-white font-semibold">點擊可下載圖片</span>
         </div>
         )}
-
-
-
 
         <img onClick={share_image_to_device}
         className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"

@@ -13,9 +13,11 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-  <div className="bg-[url('/images/01_landing_bg.jpg')] bg-cover bg-center h-screen
-  flex flex-col justify-end items-center py-8">
+  // <div className="bg-[url('/images/01_landing_bg.jpg')] bg-cover bg-center h-screen
+  // flex flex-col justify-end items-center py-8">
 
+
+ <div className="bg-[url('/images/01_landing_bg.jpg')] bg-size-[100%_100%] bg-no-repeat w-screen h-screen flex flex-col justify-end items-center py-8">
     {/* <img className="w-auto max-w-xs md:max-w-sm" src={santa_gif}></img> */}
 
     <Link to='/intro_page'>
