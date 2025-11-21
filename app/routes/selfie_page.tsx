@@ -20,7 +20,7 @@ export default function SelfiePage() {
     }
 
     const share_image_to_device = () => {
-        window.open("https://www.facebook.com/thsrco/posts/pfbid0TNHN49uSNLT8gVA6rAzRRroxLxenFyEFTuupAKcNCc5LbVq83UoN7UD8dZUb5pDpl", "_blank");
+        window.open("https://www.facebook.com/thsrco/posts/pfbid0TNHN49uSNLT8gVA6rAzRRroxLxenFyEFTuupAKcNCc5LbVq83UoN7UD8dZUb5pDpl");
     }
 
     return (
