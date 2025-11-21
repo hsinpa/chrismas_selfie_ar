@@ -52,7 +52,7 @@ export class ARCameraMain {
         await Promise.all([this.setupWebcamTexture(app),
                             // this.setupFrameVideoTexture(),
                             this.setupScreenFrameSprite(app, '../screen_frames/screen_frame_temp.png', {z_index: 2, scale: 1.2 } ),
-                            this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.75 } ) ]);
+                            this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.3 } ) ]);
     }
 
     private async setupWebcamTexture(app: Application<Renderer>) {

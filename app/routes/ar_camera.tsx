@@ -38,10 +38,9 @@ export default function ARCameraComp() {
                 className="relative z-0"
             />
 
-        <div className="flex items-center justify-center h-screen overflow-hidden">
             <img 
-
-                className="absolute bottom-0 left-0 w-full h-1/3 opacity-0 cursor-pointer"
+            
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 w-24 cursor-pointer z-20"
 
                 onClick={async () => {
                     let capture_base64 = await ar_camera_main?.captureAsImage();
@@ -52,7 +51,6 @@ export default function ARCameraComp() {
                 }}
                 src={camera_img} 
             ></img>
-        </div>
 
             <video ref={cameraVideoRef} style={{ display: 'none' }}></video>
 
