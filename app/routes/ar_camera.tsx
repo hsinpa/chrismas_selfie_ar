@@ -5,13 +5,6 @@ import camera_img from '../assets/sprite/btn_camera.png'
 import { useARCameraStore } from "~/zustand/ar_camera_store";
 import { useNavigate } from "react-router";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Chrismas AR App" },
-    { name: "description", content: "Welcome to Chrismas AR App!" },
-  ];
-}
-
 export default function ARCameraComp() {
     const canvasRef = useRef(null);
 
@@ -68,8 +61,6 @@ export default function ARCameraComp() {
                 <source src='./screen_frames/screen_frame_vp9.webm' type='video/webm; codecs="vp9"'></source> */}
                 {/* Your browser does not support the video tag. */}
             </video>
-            
-            {/* <img ref={screenVideoRef} style={{ display: 'none' }} src="./screen_frames/screen_frame_temp.png" ></img> */}
         </div>
     )
 }

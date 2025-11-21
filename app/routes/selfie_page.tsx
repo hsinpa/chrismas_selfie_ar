@@ -28,7 +28,7 @@ export default function SelfiePage() {
         flex flex-col justify-center items-center py-8">
 
 
-        <p className="text-white text-center text-2xl md:text-2xl font-bold mb-4"
+        <p className="text-white text-center text-2xl md:text-2xl font-bold mt-4"
             style={{textShadow: '2px 2px 0 #498B62, -2px -2px 0 #498B62, 2px -2px 0 #498B62, -2px 2px 0 #498B62'}}>
             收藏你的照片吧!
         </p>        
@@ -63,12 +63,6 @@ export default function SelfiePage() {
             <img src={play_again_btn_img}></img>
         </Link>
 
-
-        {/* <Link to='/'
-            className="text-white text-2xl font-bold cursor-pointer hover:scale-105 transition-transform"
-        >回首頁</Link> */}
-    
-        <p className="text-xs mt-2 text-white">Copyright @Taiwan High Speed Rail  Corporation</p>
         </div>
     )
 }

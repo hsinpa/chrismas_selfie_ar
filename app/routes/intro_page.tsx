@@ -27,7 +27,5 @@ export default function IntroPage() {
         />
       </Link>
 
-    <p className="text-xs absolute bottom-8 text-white">Copyright @Taiwan High Speed Rail  Corporation</p>
-
     </div>  );
 }

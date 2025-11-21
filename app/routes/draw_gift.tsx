@@ -82,7 +82,6 @@ export default function DrawGiftPage() {
         alt="Gift"
         className={`absolute bottom-0 z-2 w-full`}
     />
-    <p className="text-xs absolute bottom-8 z-20 text-white">Copyright @Taiwan High Speed Rail  Corporation</p>
   </div>
   );
 }

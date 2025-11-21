@@ -5,10 +5,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  type MetaFunction,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import faviconAsset from "./assets/favicon_io/favicon.ico";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,7 +23,25 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+
+  {
+    rel: "icon",
+    href: faviconAsset,
+    type: "image/x-icon",
+  },
 ];
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "HOHOHO!高鐵聖誕一起來台玩~" },
+    { name: "description", content: "HOHOHO!高鐵聖誕一起來台玩~" },
+    // Global OG Tags
+    { property: "og:site_name", content: "HOHOHO!高鐵聖誕一起來台玩~" },
+    { property: "og:type", content: "website" },
+    { property: "og:image", content: "https://i.postimg.cc/dttzbgZ1/OG.png" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
