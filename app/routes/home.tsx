@@ -23,7 +23,7 @@ export default function Home() {
         className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
     ></img>
     </Link>
-    <p className="text-xs">Copyright @Taiwan High Speed Rail  Corporation</p>
+    <p className="text-xs text-white">Copyright @Taiwan High Speed Rail  Corporation</p>
   </div>
   );
 }

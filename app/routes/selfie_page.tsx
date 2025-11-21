@@ -73,7 +73,7 @@ export default function SelfiePage() {
             className="text-white text-2xl font-bold cursor-pointer hover:scale-105 transition-transform"
         >回首頁</Link> */}
     
-        <p className="text-xs absolute bottom-8 z-20">Copyright @Taiwan High Speed Rail  Corporation</p>
+        <p className="text-xs mt-2 text-white">Copyright @Taiwan High Speed Rail  Corporation</p>
         </div>
     )
 }

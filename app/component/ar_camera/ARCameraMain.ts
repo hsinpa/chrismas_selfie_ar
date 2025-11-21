@@ -1,4 +1,4 @@
-import { Application, Assets, Container, Matrix, Rectangle, RenderTexture, Sprite, Texture, type Renderer } from "pixi.js";
+import { Application, Assets, Matrix, RenderTexture, Sprite, Texture, type Renderer } from "pixi.js";
 import type { PixiSpriteConfig } from "~/utility/sprite_type";
 
 
