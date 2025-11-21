@@ -51,9 +51,9 @@ export class ARCameraMain {
         app.renderer.resize(targetW, targetH);
 
         await Promise.all([this.setupWebcamTexture(app),
-                            this.setupFrameVideoTexture(),
-                            this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.8 } ) ]);
-        
+                            // this.setupFrameVideoTexture(),
+                            this.setupScreenFrameSprite(app, '../screen_frames/screen_frame_temp.png', {z_index: 2, scale: 1.2 } ),
+                            this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 1.2 } ) ]);
     }
 
     private async setupWebcamTexture(app: Application<Renderer>) {
@@ -79,7 +79,7 @@ export class ARCameraMain {
             app.renderer.resize(containerWidth, containerHeight);
 
             // Create video texture and sprite
-            this._camera_video_sprite = this.setupVideoSprite(this._camera_video_dom, 0);
+            this._camera_video_sprite = await this.setupVideoSprite(this._camera_video_dom, 0);
         } catch (error ) {
             console.error('❌ Unexpected error:', error);
         }
@@ -88,7 +88,6 @@ export class ARCameraMain {
     private async setupFrameVideoTexture() {
             this._screen_frame_video_dom.currentTime = 0; // Reset to start
             await this._screen_frame_video_dom.play();
-
             this._screen_frame_video_sprite = this.setupVideoSprite(this._screen_frame_video_dom, 2);
     }
 
@@ -104,7 +103,7 @@ export class ARCameraMain {
         const scaleX = this._app.screen.width / video_dom.videoWidth;
         const scaleY = this._app.screen.height / video_dom.videoHeight;
         const scale = Math.max(scaleX, scaleY); // Use max to cover
-
+        
         videoSprite.scale.set(scale);
 
         // Center the video
@@ -125,21 +124,34 @@ export class ARCameraMain {
         const texture = await Assets.load(texture_path);
         const sprite = new Sprite(texture);
 
-        sprite.zIndex = sprite_config.z_index;
-
-        const scaleX = app.screen.width / 1230;
-        const scaleY = app.screen.height / 1920;
-        const scale = Math.max(scaleX, scaleY) * sprite_config.scale; // Use max to cover
-
-        // const scale = sprite_config.scale;
-        
-        sprite.scale.set(scale);
+        sprite.zIndex = sprite_config.z_index;        
+        sprite.scale.set(sprite_config.scale);
         sprite.x = (app.screen.width - sprite.getSize().width) / 2;
         sprite.y = (app.screen.height - sprite.getSize().height) / 2;
 
         app.stage.addChild(sprite);
 
         this._tree_camera_sprite = sprite;
+        return sprite;
+    }
+
+
+    private async setupScreenFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
+        const texture = await Assets.load(texture_path);
+        const sprite = new Sprite(texture);
+        sprite.zIndex = sprite_config.z_index;       
+
+        const scaleX = app.screen.width / sprite.width;
+        const scaleY = app.screen.height / sprite.height;
+        const scale = Math.max(scaleX, scaleY); // Use max to cover
+
+        sprite.scale.set(scale);
+        sprite.x = (app.screen.width - sprite.getSize().width) / 2;
+        sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+
+        app.stage.addChild(sprite);
+
+        this._screen_frame_video_sprite = sprite;
         return sprite;
     }
 

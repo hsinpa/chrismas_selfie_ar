@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useARCameraStore } from "~/zustand/ar_camera_store";
 import { Link } from "react-router";
 import { downloadFromBase64 } from "~/utility/utility_func";
+import play_again_btn_img from '../assets/sprite/play_again.png'
+import share_and_lottery_img from '../assets/sprite/share_and_lottery.png'
 
 export default function SelfiePage() {
     const selfie_source = useARCameraStore(x=>x.selfie_source);
@@ -17,27 +19,61 @@ export default function SelfiePage() {
         downloadFromBase64(selfie_source, 'my_chrismas_selfie.png');
     }
 
+    const share_image_to_device = () => {
+        if (selfie_source == null) return;
+
+        downloadFromBase64(selfie_source, 'my_chrismas_selfie.png');
+    }
+
     return (
         <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-cover bg-center h-screen
-        flex flex-col justify-end items-center py-8 gap-5">
+        flex flex-col justify-center items-center py-8">
+
+
+        <p className="text-white text-center text-2xl md:text-2xl font-bold mb-4"
+            style={{textShadow: '2px 2px 0 #498B62, -2px -2px 0 #498B62, 2px -2px 0 #498B62, -2px 2px 0 #498B62'}}>
+            收藏你的照片吧!
+        </p>        
 
         {selfie_source && (
-            <img src={selfie_source} alt="Selfie" className="w-auto max-w-3xs md:max-w-sm" />
+
+
+        <div className="flex flex-col items-center gap-4 mb-2">
+          <div className="group relative">
+            {/* <img src={selfie_source} alt="Selfie" className="w-auto max-w-3xs md:max-w-sm" /> */}
+            <img 
+              src={selfie_source} 
+              alt="Profile Clean" 
+              className="max-w-3xs md:max-w-sm h-80 object-cover rounded-3xl border-3 border-white shadow-lg"
+              onClick={save_image_to_device}
+            />
+
+
+          </div>
+
+        <span className="block text-white font-semibold">點擊可下載圖片</span>
+        </div>
         )}
 
-        <button onClick={save_image_to_device}
-            className="w-64 px-8 py-3 bg-linear-to-b from-[#E78756] to-orange-600 text-white text-2xl font-bold rounded-full cursor-pointer hover:scale-105 transition-transform shadow-lg text-center"
-        >下載並分享</button>
+
+
+
+        <img onClick={share_image_to_device}
+        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+        src={share_and_lottery_img}></img>
 
         <Link to='/ar_camera'
-            className="w-64 px-8 py-3 bg-white text-orange-600 text-2xl font-bold rounded-full cursor-pointer hover:scale-105 transition-transform shadow-lg text-center"
-        >再拍一次</Link>
+            className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+        >
+            <img src={play_again_btn_img}></img>
+        </Link>
 
 
-        <Link to='/'
+        {/* <Link to='/'
             className="text-white text-2xl font-bold cursor-pointer hover:scale-105 transition-transform"
-        >回首頁</Link>
-
+        >回首頁</Link> */}
+    
+        <p className="text-xs absolute bottom-8 z-20">Copyright @Taiwan High Speed Rail  Corporation</p>
         </div>
     )
 }

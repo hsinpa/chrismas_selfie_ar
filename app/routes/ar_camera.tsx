@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Route } from "./+types/home";
 import { ARCameraMain } from "~/component/ar_camera/ARCameraMain";
-import xmastree_img from '../assets/sprite/05_xmastree_targetframe.png'
 import camera_img from '../assets/sprite/btn_camera.png'
 import { useARCameraStore } from "~/zustand/ar_camera_store";
 import { useNavigate } from "react-router";
@@ -65,11 +64,12 @@ export default function ARCameraComp() {
             <video ref={cameraVideoRef} style={{ display: 'none' }}></video>
 
             <video ref={screenVideoRef} style={{ display: 'none' }} autoPlay={true} loop={true} playsInline={true} muted={true} preload="auto">
-                <source src='./screen_frames/screen_frame_hevc.mov' type='video/mp4; codecs="hvc1"'></source>
-                <source src='./screen_frames/screen_frame_vp9.webm' type='video/webm; codecs="vp9"'></source>
-                Your browser does not support the video tag.
+                {/* <source src='./screen_frames/screen_frame_hevc.mov' type='video/mp4; codecs="hvc1"'></source>
+                <source src='./screen_frames/screen_frame_vp9.webm' type='video/webm; codecs="vp9"'></source> */}
+                {/* Your browser does not support the video tag. */}
             </video>
-
+            
+            {/* <img ref={screenVideoRef} style={{ display: 'none' }} src="./screen_frames/screen_frame_temp.png" ></img> */}
         </div>
     )
 }
