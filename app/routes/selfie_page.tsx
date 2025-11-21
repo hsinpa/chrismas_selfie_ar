@@ -20,9 +20,7 @@ export default function SelfiePage() {
     }
 
     const share_image_to_device = () => {
-        if (selfie_source == null) return;
-
-        downloadFromBase64(selfie_source, 'my_chrismas_selfie.png');
+        window.open("https://www.facebook.com/thsrco/posts/pfbid0TNHN49uSNLT8gVA6rAzRRroxLxenFyEFTuupAKcNCc5LbVq83UoN7UD8dZUb5pDpl", "_blank");
     }
 
     return (
