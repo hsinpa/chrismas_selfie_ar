@@ -1,4 +1,4 @@
-import { Application, Assets, Rectangle, Sprite, Texture, type Renderer } from "pixi.js";
+import { Application, Assets, Container, Matrix, Rectangle, RenderTexture, Sprite, Texture, type Renderer } from "pixi.js";
 import type { PixiSpriteConfig } from "~/utility/sprite_type";
 
 
@@ -43,7 +43,6 @@ export class ARCameraMain {
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
 
-        
         const MAX_W = 1080;
         const MAX_H = 1920;
         const targetW = Math.min(window.innerWidth, MAX_W);
@@ -155,21 +154,40 @@ export class ARCameraMain {
         return sprite;
     }
 
-    public async captureAsImage(): Promise<string> {
-        if (!this._app) throw new Error('App not initialized');
-    
-        const frame = new Rectangle(
-            0, 
-            0, 
-            this._app.renderer.width, 
-            this._app.renderer.height
-        );
+    public async captureAsImage(maxLongSide = 1280): Promise<string> {
+        if (!this._app) throw new Error("App not initialized");
+        if (!this._tree_camera_sprite) throw new Error("Tree camera sprite not initialized");
 
-        if (this._tree_camera_sprite == null) throw new Error('Tree camera sprite not initialized');
+        const app = this._app;
 
+        // Hide overlay while capturing
         this._tree_camera_sprite.visible = false;
 
-        const base64 = await this._app.renderer.extract.base64({target: this._app.stage, frame: frame});
+        // Compute downscale
+        const srcW = app.renderer.width;
+        const srcH = app.renderer.height;
+        const scale = Math.min(1, maxLongSide / Math.max(srcW, srcH));
+        const dstW = Math.max(1, Math.round(srcW * scale));
+        const dstH = Math.max(1, Math.round(srcH * scale));
+
+        const rt = RenderTexture.create({ width: dstW, height: dstH });
+
+        const m = new Matrix();
+        m.scale(scale, scale);
+
+        // ✅ v8 object-form with correct keys
+        app.renderer.render({
+            container: app.stage, // what to render
+            target: rt,           // where to render (RenderTexture)
+            clear: true,
+            transform: m,
+        });
+
+        // Extract as base64 from the smaller RT
+        const base64 = await app.renderer.extract.base64(rt);
+
+        // Cleanup & restore
+        rt.destroy(true);
         return base64;
     }
 
