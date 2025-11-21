@@ -38,7 +38,7 @@ export const meta: MetaFunction = () => {
     // Global OG Tags
     { property: "og:site_name", content: "HOHOHO!高鐵聖誕一起來台玩~" },
     { property: "og:type", content: "website" },
-    { property: "og:image", content: "https://i.postimg.cc/dttzbgZ1/OG.png" },
+    { property: "og:image", content: "https://i.postimg.cc/QMtLxrwS/OG.png" },
     { name: "twitter:card", content: "summary_large_image" },
   ];
 };
