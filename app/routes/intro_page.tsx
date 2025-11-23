@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import next_btn_img from '../assets/sprite/02_btn_next.png'
 import label_png from '../assets/sprite/02_label_with_text.png'
-import kv_title_v2 from '../assets/sprite/kv_title_v2.png'
+import kv_title_v3 from '../assets/sprite/kv_title_v3.png'
 
 export default function IntroPage() {
     return (
@@ -9,7 +9,7 @@ export default function IntroPage() {
       relative flex flex-col justify-center items-center">
 
       <img 
-        src={kv_title_v2}
+        src={kv_title_v3}
         className="mb-2" 
         alt="Title"
       />
