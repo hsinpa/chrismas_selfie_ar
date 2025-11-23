@@ -11,6 +11,7 @@ export class ARCameraMain {
     private _camera_video_sprite: Sprite | null = null;
     private _screen_frame_video_sprite: Sprite | null = null;
     private _tree_camera_sprite: Sprite | null = null;
+    private _tree_camera_text: Text | null = null;
 
     private _width: number;
     private _height: number;
@@ -144,6 +145,7 @@ export class ARCameraMain {
         app.stage.addChild(sprite);
         app.stage.addChild(myText);
 
+        this._tree_camera_text = myText;
         this._tree_camera_sprite = sprite;
         return sprite;
     }
@@ -171,7 +173,6 @@ export class ARCameraMain {
         sprite.height = app.screen.height;
 
         app.stage.addChild(sprite);
-
         this._screen_frame_video_sprite = sprite;
         return sprite;
     }
@@ -184,6 +185,9 @@ export class ARCameraMain {
 
         // Hide overlay while capturing
         this._tree_camera_sprite.visible = false;
+
+        if (this._tree_camera_text != null)
+            this._tree_camera_text.visible = false;
 
         // Compute downscale
         const srcW = app.renderer.width;
