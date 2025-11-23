@@ -28,8 +28,7 @@ export default function SelfiePage() {
         flex flex-col justify-center items-center py-8">
 
 
-        <p className="text-white text-center text-2xl md:text-2xl font-bold mt-4"
-            style={{textShadow: '2px 2px 0 #498B62, -2px -2px 0 #498B62, 2px -2px 0 #498B62, -2px 2px 0 #498B62'}}>
+        <p className="text-white text-center text-2xl md:text-2xl font-bold pb-1">
             收藏你的照片吧!
         </p>        
 
@@ -57,11 +56,13 @@ export default function SelfiePage() {
         className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         src={share_and_lottery_img}></img>
 
-        <Link to='/ar_camera'
+        <Link to='/'
             className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         >
             <img src={play_again_btn_img}></img>
         </Link>
+
+
 
         </div>
     )

@@ -8,9 +8,9 @@ export default function Home() {
  <div className="bg-[url('/images/01_landing_bg.jpg')] bg-size-[100%_100%] bg-no-repeat w-screen h-screen flex flex-col justify-end items-center py-8">
     {/* <img className="w-auto max-w-xs md:max-w-sm" src={santa_gif}></img> */}
 
-    <Link to='/intro_page'>
+    <Link to='/intro_page' className='mb-12'>
         <img src={start_btn_img}
-        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform "
     ></img>
     </Link>
   </div>

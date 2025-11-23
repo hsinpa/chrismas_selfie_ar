@@ -59,14 +59,12 @@ export default function DrawGiftPage() {
     style={{ backgroundImage: `url('${is_gift_given ? after_background : pre_background}')` }}
 >
 
-    <section className='flex flex-col gap-1 h-20'>
-      <p className=" text-white text-center text-2xl md:text-2xl font-bold px-4"
-        style={{textShadow: '2px 2px 0 #498B62, -2px -2px 0 #498B62, 2px -2px 0 #498B62, -2px 2px 0 #498B62'}}>
-          登登登
+    <section className='flex flex-col gap-1 h-20 relative top-6'>
+      <p className=" text-white text-center text-sm font-bold px-4">
+          登登登!
       </p>
 
-      <p className="text-white text-center text-4xl md:text-2xl font-bold px-4"
-          style={{textShadow: '2px 2px 0 #498B62, -2px -2px 0 #498B62, 2px -2px 0 #498B62, -2px 2px 0 #498B62'}}>
+      <p className="text-white text-center text-5xl font-bold px-4 whitespace-nowrap ">
            山系森誕老公公
       </p>        
     </section>
@@ -74,7 +72,7 @@ export default function DrawGiftPage() {
     <img 
         src={gift_gif_path}
         alt="Gift"
-        className={`relative z-1 `}
+        className={`z-1 relative top-4`}
     />
 
     <img 

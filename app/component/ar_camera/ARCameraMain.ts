@@ -1,4 +1,4 @@
-import { Application, Assets, Matrix, RenderTexture, Sprite, Texture, type Renderer } from "pixi.js";
+import { Application, Assets, Matrix, RenderTexture, Sprite, Texture, Text, type Renderer } from "pixi.js";
 import type { PixiSpriteConfig } from "~/utility/sprite_type";
 
 
@@ -126,27 +126,49 @@ export class ARCameraMain {
         sprite.zIndex = sprite_config.z_index;        
         sprite.scale.set(sprite_config.scale);
         sprite.x = (app.screen.width - sprite.getSize().width) / 2;
-        sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+        sprite.y = ( (app.screen.height - sprite.getSize().height) / 2) + 30;
+
+
+        const myText = new Text({
+            text: '請對準聖誕樹',
+            style: {
+            fill: '#ffffff',
+            fontSize: 12,
+        }});
+        myText.resolution = 2;
+        myText.zIndex = sprite_config.z_index + 1;        
+
+        myText.x = (app.screen.width - myText.getSize().width) / 2;
+        myText.y = (sprite.y) -20;
 
         app.stage.addChild(sprite);
+        app.stage.addChild(myText);
 
         this._tree_camera_sprite = sprite;
         return sprite;
     }
-
 
     private async setupScreenFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
         const texture = await Assets.load(texture_path);
         const sprite = new Sprite(texture);
         sprite.zIndex = sprite_config.z_index;       
 
-        const scaleX = app.screen.width / sprite.width;
-        const scaleY = app.screen.height / sprite.height;
-        const scale = Math.max(scaleX, scaleY); // Use max to cover
+        // const scaleX = app.screen.width / sprite.width;
+        // const scaleY = app.screen.height / sprite.height;
+        // const scale = Math.max(scaleX, scaleY); // Use max to cover
 
-        sprite.scale.set(scale);
-        sprite.x = (app.screen.width - sprite.getSize().width) / 2;
-        sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+        // sprite.scale.set(scale);
+        // sprite.x = (app.screen.width - sprite.getSize().width) / 2;
+        // sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+
+        // 1. Reset position to top-left corner
+        sprite.x = 0;
+        sprite.y = 0;
+
+        // 2. Force the width and height to match the screen exactly
+        // PixiJS will automatically calculate the necessary scale.x and scale.y to make this happen
+        sprite.width = app.screen.width;
+        sprite.height = app.screen.height;
 
         app.stage.addChild(sprite);
 
