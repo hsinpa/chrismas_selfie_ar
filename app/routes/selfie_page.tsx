@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { downloadFromBase64 } from "~/utility/utility_func";
 import play_again_btn_img from '../assets/sprite/play_again.png'
 import share_and_lottery_img from '../assets/sprite/share_and_lottery.png'
+import kv_title_v3 from '../assets/sprite/kv_title_v3.png'
 
 export default function SelfiePage() {
     const selfie_source = useARCameraStore(x=>x.selfie_source);
@@ -27,8 +28,12 @@ export default function SelfiePage() {
         <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-size-[100%_100%] bg-no-repeat bg-center h-screen
         flex flex-col justify-center items-center py-8">
 
+        <img 
+            src={kv_title_v3} 
+            className="max-w-24"
+        />
 
-        <p className="text-white text-center text-2xl md:text-2xl font-bold pb-1">
+        <p className="text-white text-center text-2xl md:text-2xl font-bold py-4">
             收藏你的照片吧!
         </p>        
 
@@ -48,7 +53,7 @@ export default function SelfiePage() {
 
           </div>
 
-        <span className="block text-white font-semibold">點擊可下載圖片</span>
+        <span className="block text-white text-sm font-semibold">點擊可下載圖片</span>
         </div>
         )}
 
