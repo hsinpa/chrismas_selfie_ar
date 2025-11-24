@@ -59,18 +59,21 @@ export class ARCameraMain {
     private async setupWebcamTexture(app: Application<Renderer>) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: { width: {ideal: 720}, height: {ideal: 1280}, facingMode: 'environment' }
+                video: { 
+                    // width: {ideal: 720}, height: {ideal: 1280},
+                aspectRatio: { ideal: 1.333 },
+                facingMode: 'environment' }
             });
 
-            const videoTrack: any = stream.getVideoTracks()[0];
-            const capabilities: any = videoTrack.getCapabilities();
+            // const videoTrack: any = stream.getVideoTracks()[0];
+            // const capabilities: any = videoTrack.getCapabilities();
 
-            // Check if zoom is supported
-            if (capabilities.zoom) {
-                await videoTrack.applyConstraints({
-                    advanced: [{ zoom: capabilities.zoom.min }] // Use minimum zoom to zoom out
-                });
-            }
+            // // Check if zoom is supported
+            // if (capabilities.zoom) {
+            //     await videoTrack.applyConstraints({
+            //         advanced: [{ zoom: capabilities.zoom.min }] // Use minimum zoom to zoom out
+            //     });
+            // }
 
             this._camera_video_dom.srcObject = stream;
             this._camera_video_dom.muted = true;
