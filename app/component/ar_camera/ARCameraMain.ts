@@ -36,7 +36,6 @@ export class ARCameraMain {
             resolution: 1,
             autoDensity: true,
             preference: 'webgl',
-            powerPreference: 'low-power',
         });
 
         this._app = app;
@@ -96,6 +95,12 @@ export class ARCameraMain {
 
         // Create texture from video element
         const videoTexture = Texture.from(video_dom);
+
+        if (videoTexture.source.resource) {
+             // @ts-ignore - Typescript might complain depending on version, but this property exists
+             videoTexture.source.autoUpdate = true; 
+        }
+
         const videoSprite = new Sprite(videoTexture);
         videoSprite.zIndex = z_index;
 
@@ -113,9 +118,9 @@ export class ARCameraMain {
         this._app.stage.addChild(videoSprite);
 
         // Update texture each frame
-        this._app.ticker.add(() => {
-            videoTexture.source.update();
-        });
+        // this._app.ticker.add(() => {
+        //     videoTexture.source.update();
+        // });
 
         return videoSprite;
     }
@@ -210,7 +215,11 @@ export class ARCameraMain {
         });
 
         // Extract as base64 from the smaller RT
-        const base64 = await app.renderer.extract.base64(rt);
+        const base64 = await app.renderer.extract.base64({
+            target: rt,
+            format: 'jpg',
+            quality: 0.8
+        });
 
         // Cleanup & restore
         rt.destroy(true);
