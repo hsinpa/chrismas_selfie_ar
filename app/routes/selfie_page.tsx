@@ -26,9 +26,9 @@ export default function SelfiePage() {
 
     return (
         <div className="bg-[url('/images/02_intro_bg.jpg')] bg-cover bg-center h-screen
-        flex flex-col justify-center items-center py-8">
+        flex flex-col justify-center items-center">
 
-        <section className="flex justify-center flex-col text-white text-center py-2">
+        <section className="flex justify-center flex-col text-white text-center py-2 -mt-6">
             <p className=" text-2xl md:text-2xl font-bold">
                 先下載圖片再分享
             </p>        
@@ -51,7 +51,7 @@ export default function SelfiePage() {
             />
           </div>
 
-        <span className="block text-white text-sm font-semibold">長按圖片下載</span>
+        <span className="block text-white text-base">長按圖片下載</span>
         </div>
         )}
 

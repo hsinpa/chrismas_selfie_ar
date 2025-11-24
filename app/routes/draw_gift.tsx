@@ -55,12 +55,12 @@ export default function DrawGiftPage() {
 
     return (
 <div 
-    className="bg-cover bg-center h-screen flex flex-col justify-center items-center py-8 relative"
+    className="bg-size-[100%_100%] bg-no-repeat bg-center h-screen flex flex-col justify-center items-center py-8 relative"
     style={{ backgroundImage: `url('${is_gift_given ? after_background : pre_background}')` }}
 >
 
     <section className='flex flex-col gap-1 h-20 relative top-6'>
-      <p className="text-white text-center text-5xl font-bold px-4 whitespace-nowrap ">
+      <p className="text-white text-center text-4xl font-bold px-4 whitespace-nowrap ">
            / 山系森誕老公公 \
       </p>
     </section>
