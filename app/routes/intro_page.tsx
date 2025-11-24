@@ -5,14 +5,9 @@ import kv_title_v3 from '../assets/sprite/kv_title_v3.png'
 
 export default function IntroPage() {
     return (
-<div className="bg-[url('/images/02_intro_bg.jpg')] bg-size-[100%_100%] bg-no-repeat bg-center h-screen
+<div className="bg-[url('/images/02_intro_bg.jpg')] bg-cover bg-center h-screen
       relative flex flex-col justify-center items-center">
 
-      <img 
-        src={kv_title_v3}
-        className="mb-2" 
-        alt="Title"
-      />
 
       <img 
         src={label_png}

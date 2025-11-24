@@ -64,16 +64,6 @@ export class ARCameraMain {
                 facingMode: 'environment' }
             });
 
-            // const videoTrack: any = stream.getVideoTracks()[0];
-            // const capabilities: any = videoTrack.getCapabilities();
-
-            // // Check if zoom is supported
-            // if (capabilities.zoom) {
-            //     await videoTrack.applyConstraints({
-            //         advanced: [{ zoom: capabilities.zoom.min }] // Use minimum zoom to zoom out
-            //     });
-            // }
-
             this._camera_video_dom.srcObject = stream;
             this._camera_video_dom.muted = true;
             this._camera_video_dom.playsInline = true;
@@ -148,22 +138,29 @@ export class ARCameraMain {
         sprite.y = ( (app.screen.height - sprite.getSize().height) / 2) + 30;
 
 
-        const myText = new Text({
+        const hint_text = new Text({
             text: '請對準聖誕樹',
             style: {
             fill: '#ffffff',
             fontSize: 12,
         }});
-        myText.resolution = 2;
-        myText.zIndex = sprite_config.z_index + 1;        
+        hint_text.resolution = 2;
+        hint_text.zIndex = sprite_config.z_index + 1;        
 
-        myText.x = (app.screen.width - myText.getSize().width) / 2;
-        myText.y = (sprite.y) -20;
+        hint_text.x = (app.screen.width - hint_text.getSize().width) / 2;
+        hint_text.y = (sprite.y) -20;
+
+        const logo_texture = await Assets.load('../images/right_corner.png');
+        const logo_sprite = new Sprite(logo_texture);
+        logo_sprite.zIndex = sprite_config.z_index + 1;
+        logo_sprite.x = app.screen.width - logo_sprite.getSize().width;
+        logo_sprite.y = 0;
 
         app.stage.addChild(sprite);
-        app.stage.addChild(myText);
+        app.stage.addChild(hint_text);
+        app.stage.addChild(logo_sprite);
 
-        this._tree_camera_text = myText;
+        this._tree_camera_text = hint_text;
         this._tree_camera_sprite = sprite;
         return sprite;
     }

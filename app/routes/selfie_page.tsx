@@ -25,17 +25,17 @@ export default function SelfiePage() {
     }
 
     return (
-        <div className="bg-[url('/images/07_dlresult_bg.jpg')] bg-size-[100%_100%] bg-no-repeat bg-center h-screen
+        <div className="bg-[url('/images/02_intro_bg.jpg')] bg-cover bg-center h-screen
         flex flex-col justify-center items-center py-8">
 
-        <img 
-            src={kv_title_v3} 
-            className="max-w-24"
-        />
-
-        <p className="text-white text-center text-2xl md:text-2xl font-bold py-4">
-            收藏你的照片吧!
-        </p>        
+        <section className="flex justify-center flex-col text-white text-center py-2">
+            <p className=" text-2xl md:text-2xl font-bold">
+                先下載圖片再分享
+            </p>        
+            <p className=" text-2xl md:text-2xl font-bold">
+                抽高鐵半價車票！
+            </p>        
+        </section>
 
         {selfie_source && (
 
@@ -46,14 +46,12 @@ export default function SelfiePage() {
             <img 
               src={selfie_source} 
               alt="Profile Clean" 
-              className="max-w-3xs md:max-w-sm h-80 object-cover rounded-3xl border-3 border-white shadow-lg"
+              className="max-w-3xs md:max-w-sm h-90 object-cover rounded-3xl border-3 border-white shadow-lg"
               onClick={save_image_to_device}
             />
-
-
           </div>
 
-        <span className="block text-white text-sm font-semibold">點擊可下載圖片</span>
+        <span className="block text-white text-sm font-semibold">長按圖片下載</span>
         </div>
         )}
 
@@ -61,7 +59,7 @@ export default function SelfiePage() {
         className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         src={share_and_lottery_img}></img>
 
-        <Link to='/'
+        <Link to='/ar_camera'
             className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         >
             <img src={play_again_btn_img}></img>
