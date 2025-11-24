@@ -61,6 +61,17 @@ export class ARCameraMain {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { width: {ideal: 720}, height: {ideal: 1280}, facingMode: 'environment' }
             });
+
+            const videoTrack: any = stream.getVideoTracks()[0];
+            const capabilities: any = videoTrack.getCapabilities();
+
+            // Check if zoom is supported
+            if (capabilities.zoom) {
+                await videoTrack.applyConstraints({
+                    advanced: [{ zoom: capabilities.zoom.min }] // Use minimum zoom to zoom out
+                });
+            }
+
             this._camera_video_dom.srcObject = stream;
             this._camera_video_dom.muted = true;
             this._camera_video_dom.playsInline = true;
