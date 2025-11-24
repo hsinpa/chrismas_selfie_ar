@@ -170,22 +170,22 @@ export class ARCameraMain {
         const sprite = new Sprite(texture);
         sprite.zIndex = sprite_config.z_index;       
 
-        // const scaleX = app.screen.width / sprite.width;
-        // const scaleY = app.screen.height / sprite.height;
-        // const scale = Math.max(scaleX, scaleY); // Use max to cover
+        const scaleX = app.screen.width / sprite.width;
+        const scaleY = app.screen.height / sprite.height;
+        const scale = Math.max(scaleX, scaleY); // Use max to cover
 
-        // sprite.scale.set(scale);
-        // sprite.x = (app.screen.width - sprite.getSize().width) / 2;
-        // sprite.y = (app.screen.height - sprite.getSize().height) / 2;
+        sprite.scale.set(scale);
+        sprite.x = (app.screen.width - sprite.getSize().width) / 2;
+        sprite.y = (app.screen.height - sprite.getSize().height) / 2;
 
-        // 1. Reset position to top-left corner
-        sprite.x = 0;
-        sprite.y = 0;
+        // // 1. Reset position to top-left corner
+        // sprite.x = 0;
+        // sprite.y = 0;
 
-        // 2. Force the width and height to match the screen exactly
-        // PixiJS will automatically calculate the necessary scale.x and scale.y to make this happen
-        sprite.width = app.screen.width;
-        sprite.height = app.screen.height;
+        // // 2. Force the width and height to match the screen exactly
+        // // PixiJS will automatically calculate the necessary scale.x and scale.y to make this happen
+        // sprite.width = app.screen.width;
+        // sprite.height = app.screen.height;
 
         app.stage.addChild(sprite);
         this._screen_frame_video_sprite = sprite;
