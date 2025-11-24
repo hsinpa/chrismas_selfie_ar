@@ -59,9 +59,8 @@ export class ARCameraMain {
     private async setupWebcamTexture(app: Application<Renderer>) {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: { width: 720, height: 1280, facingMode: 'environment' }
+                video: { width: {ideal: 720}, height: {ideal: 1280}, facingMode: 'environment' }
             });
-
             this._camera_video_dom.srcObject = stream;
             this._camera_video_dom.muted = true;
             this._camera_video_dom.playsInline = true;
