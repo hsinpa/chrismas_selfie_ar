@@ -26,9 +26,9 @@ export default function SelfiePage() {
 
     return (
         <div className="bg-[url('/images/02_intro_bg.jpg')] bg-cover bg-center h-screen
-        flex flex-col justify-center items-center">
+        flex flex-col justify-start items-center">
 
-        <section className="flex justify-center flex-col text-white text-center py-2 -mt-6">
+        <section className="flex justify-center flex-col text-white text-center py-2 mt-2">
             <p className=" text-2xl md:text-2xl font-bold">
                 先下載圖片再分享
             </p>        
@@ -46,7 +46,7 @@ export default function SelfiePage() {
             <img 
               src={selfie_source} 
               alt="Profile Clean" 
-              className="max-w-3xs md:max-w-sm h-90 object-cover rounded-3xl border-3 border-white shadow-lg"
+              className="max-w-4xs md:max-w-sm h-110 object-cover rounded-3xl border-3 border-white shadow-lg"
               onClick={save_image_to_device}
             />
           </div>
