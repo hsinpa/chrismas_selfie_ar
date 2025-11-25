@@ -51,7 +51,7 @@ export default function SelfiePage() {
             />
           </div>
 
-        <span className="block text-white text-base">長按圖片下載</span>
+        <span className="block text-white text-xs">長按圖片下載</span>
         </div>
         )}
 

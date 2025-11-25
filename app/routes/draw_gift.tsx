@@ -67,8 +67,8 @@ export default function DrawGiftPage() {
     style={{ backgroundImage: `url('${is_gift_given ? after_background : pre_background}')` }}
 >
 
-    <section className='flex flex-col gap-1 h-20 absolute top-20'>
-      <p className="text-white text-center text-4xl font-bold px-4 whitespace-nowrap ">
+    <section className='flex flex-col gap-1 h-20 absolute top-18'>
+      <p className="text-white text-center text-4xl font-bold px-4 whitespace-nowrap z-2">
            {gift_title_text}
       </p>
     </section>
