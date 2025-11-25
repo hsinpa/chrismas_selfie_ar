@@ -169,8 +169,8 @@ export class ARCameraMain {
     private async setupScreenFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
         const texture = await Assets.load(texture_path);
         const sprite = new Sprite(texture);
-        sprite.zIndex = sprite_config.z_index;       
-
+        sprite.zIndex = sprite_config.z_index;     
+        
         const scaleX = app.screen.width / sprite.width;
         const scaleY = app.screen.height / sprite.height;
         const scale = Math.max(scaleX, scaleY); // Use max to cover

@@ -35,16 +35,14 @@ export default function DrawGiftPage() {
                 let title_text = SANTA_TABLE.get(next_gift) || "";
                 clearInterval(interval_timeout);
 
-                // set_after_background(formatString(after_background_path_template, [next_gift]));
-                set_after_background('./images/過場動畫_02_科技 (1).png');
-
+                set_after_background(formatString(after_background_path_template, [next_gift]));
                 // set_gift_gif_path(formatString(gift_png_path_template, [next_gift, "white"]));
                 set_gift_gif_path(undefined);
 
                 set_gift_given(true);
                 set_title_text(title_text);
 
-                // ahref_timeout = to_camera_page(next_gift, 3000);
+                ahref_timeout = to_camera_page(next_gift, 3000);
             }
         }, interval_time);
 
@@ -75,18 +73,25 @@ export default function DrawGiftPage() {
            {gift_title_text}
       </p>
     </section>
+    
+    {
+        !is_gift_given && (
+            <div>
+                <img 
+                    src={gift_gif_path}
+                    alt="Gift"
+                    className={`z-1 relative top-4`}
+                />
 
-    <img 
-        src={gift_gif_path}
-        alt="Gift"
-        className={`z-1 relative top-4`}
-    />
+                <img 
+                    src={front_overlay}
+                    alt="Gift"
+                    className={`absolute bottom-0 z-2 w-full`}
+                />
+            </div>
+        )
+    }
 
-    <img 
-        src={front_overlay}
-        alt="Gift"
-        className={`absolute bottom-0 z-2 w-full`}
-    />
   </div>
   );
 }
