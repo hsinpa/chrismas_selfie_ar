@@ -3,9 +3,10 @@ import type { Route } from "./+types/home";
 import { ARCameraMain } from "~/component/ar_camera/ARCameraMain";
 import camera_img from '../assets/sprite/btn_camera.png'
 import { useARCameraStore } from "~/zustand/ar_camera_store";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 export default function ARCameraComp() {
+  const [searchParams] = useSearchParams();
     const canvasRef = useRef(null);
 
     const cameraVideoRef = useRef(null);
@@ -16,13 +17,14 @@ export default function ARCameraComp() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const gift_item = searchParams.get('gift') || "傳統";
         const canvas_holder_dom = canvasRef.current;
         const camera_video_dom = cameraVideoRef.current;
         const screen_video_dom = screenVideoRef.current;
 
         if (!canvas_holder_dom || !camera_video_dom || !screen_video_dom) return;
         
-        let temp_ar_camera_main = new ARCameraMain(canvas_holder_dom, camera_video_dom, screen_video_dom);
+        let temp_ar_camera_main = new ARCameraMain(canvas_holder_dom, camera_video_dom, screen_video_dom, gift_item);
         set_ar_camera(temp_ar_camera_main);
         
         return () => {

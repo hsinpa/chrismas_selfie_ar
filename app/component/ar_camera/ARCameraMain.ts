@@ -12,17 +12,18 @@ export class ARCameraMain {
     private _screen_frame_video_sprite: Sprite | null = null;
     private _tree_camera_sprite: Sprite | null = null;
     private _tree_camera_text: Text | null = null;
-
+    private _style: string;
     private _width: number;
     private _height: number;
     private _app: Application | null = null;
     
-    constructor(canvas_holder: HTMLDivElement, camera_video_dom: HTMLVideoElement, screen_frame_video_dom: HTMLVideoElement) {
+    constructor(canvas_holder: HTMLDivElement, camera_video_dom: HTMLVideoElement, screen_frame_video_dom: HTMLVideoElement, style: string) {
         this._canvas_holder = canvas_holder;
         this._camera_video_dom = camera_video_dom;
         this._screen_frame_video_dom = screen_frame_video_dom;
         this._width = window.innerWidth;
         this._height = window.innerHeight;
+        this._style = style;
 
         let _ = this._initialize();
     }
@@ -51,7 +52,7 @@ export class ARCameraMain {
 
         await Promise.all([this.setupWebcamTexture(app),
                             // this.setupFrameVideoTexture(),
-                            this.setupScreenFrameSprite(app, '../screen_frames/screen_frame_temp.png', {z_index: 2, scale: 1.2 } ),
+                            this.setupScreenFrameSprite(app, `../screen_frames/screen_frame_${this._style}.png`, {z_index: 2, scale: 1.2 } ),
                             this.setupFrameSprite(app, '../images/05_xmastree_targetframe_with_take_picture.png', {z_index: 1, scale: 0.3 } ) ]);
     }
 

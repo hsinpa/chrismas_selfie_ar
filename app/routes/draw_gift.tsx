@@ -6,18 +6,16 @@ import { PRIZES_STATIC } from '~/utility/prize_static';
 import { SANTA_TABLE, STYLES } from '~/component/draw_gift/style_static_data';
 
 let pre_background = "/images/03_opening_bg.jpg";
-let after_background = "/images/04_giftresult_bg.jpg";
-
-const gift_to_camera_desc = "跳轉至鏡頭中{0}s...";
-const gift_open_gif = 'images/prizes/santa_傳統_black.png';
 const gift_png_path_template = 'images/prizes/santa_{0}_{1}.png';
+const after_background_path_template = 'images/prizes/background_{0}.jpg';
 
 export default function DrawGiftPage() {
     const [is_gift_given, set_gift_given] = useState(false);  
     const [gift_title_text, set_title_text] = useState("");
-    const navigate = useNavigate();
+    const [after_background, set_after_background] = useState("");
 
-    const [gift_gif_path, set_gift_gif_path] = useState<string | undefined>(undefined);
+    const navigate = useNavigate();
+    const [gift_gif_path, set_gift_gif_path] = useState<string | undefined>("images/prizes/santa_傳統_black.png");
     
     useEffect(() => {
         // Set up the timer
@@ -25,44 +23,27 @@ export default function DrawGiftPage() {
         let ahref_timeout: any = null;
 
         let time_remain = 5;
-
         let next_gift = getRandomItem(STYLES);
+        set_gift_gif_path(formatString(gift_png_path_template, [getRandomItem(STYLES), "black"]));
 
-        let max_interval_len = 30;
+        let max_interval_len = 3000;
+        let interval_time = 200;
         interval_timeout = setInterval(() => {
-            max_interval_len -= 1;
+            max_interval_len -= interval_time;
             set_gift_gif_path(formatString(gift_png_path_template, [getRandomItem(STYLES), "black"]));
-
             if (max_interval_len <= 0) {
                 let title_text = SANTA_TABLE.get(next_gift) || "";
                 clearInterval(interval_timeout);
 
+                set_after_background(formatString(after_background_path_template, [next_gift]));
+                set_gift_gif_path(formatString(gift_png_path_template, [next_gift, "white"]));
+
                 set_gift_given(true);
                 set_title_text(title_text);
 
-                set_gift_gif_path(formatString(gift_png_path_template, [next_gift, "white"]));
                 ahref_timeout = to_camera_page(next_gift, 3000);
             }
-        }, 100);
-
-        // const timer = setTimeout(() => {
-
-        //     set_gift_given(true);
-        //     set_title_text("恭喜獲得禮物!");
-        //     set_gift_content_text(formatString(gift_to_camera_desc, [time_remain]));
-        //     // set_gift_gif_path(`images/prizes/${next_gift}.png`);
-        //     set_gift_gif_path(`images/prizes/santa_傳統_white.png`);
-
-        //     interval_timeout = setInterval(() => {
-        //       time_remain -= 1;
-
-        //       if (time_remain <= 0) {
-        //         clearInterval(interval_timeout);
-        //         navigate('/ar_camera?gift=' + encodeURIComponent(next_gift));
-        //       }
-        //     }, 1000);
-
-        // }, 2000);
+        }, interval_time);
 
         return () => {
             clearInterval(interval_timeout);
@@ -86,7 +67,7 @@ export default function DrawGiftPage() {
     style={{ backgroundImage: `url('${is_gift_given ? after_background : pre_background}')` }}
 >
 
-    <section className='flex flex-col gap-1 h-20 relative top-6'>
+    <section className='flex flex-col gap-1 h-20 absolute top-20'>
       <p className="text-white text-center text-4xl font-bold px-4 whitespace-nowrap ">
            {gift_title_text}
       </p>
