@@ -228,7 +228,7 @@ export class ARCameraMain {
         const base64 = await app.renderer.extract.base64({
             target: rt,
             format: 'jpg',
-            quality: 0.8
+            quality: 1
         });
 
         // Cleanup & restore

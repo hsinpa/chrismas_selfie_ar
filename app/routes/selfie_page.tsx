@@ -59,7 +59,7 @@ export default function SelfiePage() {
         className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         src={share_and_lottery_img}></img>
 
-        <Link to='/ar_camera'
+        <Link to='/'
             className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         >
             <img src={play_again_btn_img}></img>
