@@ -60,7 +60,7 @@ export class ARCameraMain {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                width: {ideal: 1280}, height: {ideal: 720},
+                width: {ideal: 1280}, height: {ideal: 960},
                 aspectRatio: { ideal: 1.333 },
                 facingMode: 'environment' }
             });
