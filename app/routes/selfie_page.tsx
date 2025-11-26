@@ -39,12 +39,12 @@ export default function SelfiePage() {
             <img 
               src={selfie_source} 
               alt="Profile Clean" 
-              className="max-w-4xs md:max-w-sm h-110 object-cover rounded-3xl border-3 border-white shadow-lg"
+              className="max-w-4xs md:max-w-sm h-103 object-cover rounded-3xl border-3 border-white shadow-lg"
               onClick={save_image_to_device}
             />
           </div>
 
-        <span className="block text-white text-xs">長按圖片下載</span>
+        <span className="block text-white text-xs -my-2">長按圖片下載</span>
         </div>
         )}
 
