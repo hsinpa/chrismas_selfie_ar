@@ -60,7 +60,7 @@ export class ARCameraMain {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                    // width: {ideal: 720}, height: {ideal: 1280},
+                width: {ideal: 720}, height: {ideal: 1280},
                 aspectRatio: { ideal: 1.333 },
                 facingMode: 'environment' }
             });
@@ -120,12 +120,6 @@ export class ARCameraMain {
         videoSprite.y = (this._app.screen.height - video_dom.videoHeight * scale) / 2;
 
         this._app.stage.addChild(videoSprite);
-
-        // Update texture each frame
-        // this._app.ticker.add(() => {
-        //     videoTexture.source.update();
-        // });
-
         return videoSprite;
     }
 
