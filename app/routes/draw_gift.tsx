@@ -86,7 +86,7 @@ export default function DrawGiftPage() {
                 <img 
                     src={front_overlay}
                     alt="Gift"
-                    className={`absolute bottom-0 z-2 w-full`}
+                    className={`absolute bottom-0 z-4 w-full`}
                 />
             </div>
         )

@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { downloadFromBase64 } from "~/utility/utility_func";
 import play_again_btn_img from '../assets/sprite/play_again.png'
 import share_and_lottery_img from '../assets/sprite/share_and_lottery.png'
-import kv_title_v3 from '../assets/sprite/kv_title_v3.png'
+import download_image_indictation from '../assets/sprite/download_image_indictation.png'
 
 export default function SelfiePage() {
     const selfie_source = useARCameraStore(x=>x.selfie_source);
@@ -28,14 +28,7 @@ export default function SelfiePage() {
         <div className="bg-[url('/images/02_intro_bg.jpg')] bg-cover bg-center h-screen
         flex flex-col justify-start items-center">
 
-        <section className="flex justify-center flex-col text-white text-center py-2 mt-2">
-            <p className=" text-2xl md:text-2xl font-bold">
-                先下載圖片再分享
-            </p>        
-            <p className=" text-2xl md:text-2xl font-bold">
-                抽高鐵半價車票！
-            </p>        
-        </section>
+        <img className="py-2 mt-2" src={download_image_indictation}></img>
 
         {selfie_source && (
 

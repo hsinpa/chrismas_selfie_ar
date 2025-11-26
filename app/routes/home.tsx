@@ -7,7 +7,7 @@ export default function Home() {
   return (
  <div className="bg-[url('/images/01_landing_bg.jpg')] bg-cover w-screen h-screen flex flex-col justify-end items-center py-8">
     
-    <img className="w-32 absolute top-2 right-2" src={`/images/right_corner.png`}></img>
+    {/* <img className="w-32 absolute top-2 right-2" src={`/images/right_corner.png`}></img> */}
 
     <Link to='/intro_page' className='mb-12'>
         <img src={start_btn_img}
