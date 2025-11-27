@@ -132,7 +132,6 @@ export class ARCameraMain {
         sprite.x = (app.screen.width - sprite.getSize().width) / 2;
         sprite.y = ( (app.screen.height - sprite.getSize().height) / 2) + 30;
 
-
         const hint_text = new Text({
             text: '請對準聖誕樹',
             style: {
@@ -163,7 +162,7 @@ export class ARCameraMain {
     private async setupScreenFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
         const texture = await Assets.load(texture_path);
         const sprite = new Sprite(texture);
-        sprite.zIndex = sprite_config.z_index;     
+        sprite.zIndex = sprite_config.z_index + 1;     
         
         const scaleX = app.screen.width / sprite.width;
         const scaleY = app.screen.height / sprite.height;
