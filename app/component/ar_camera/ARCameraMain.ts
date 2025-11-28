@@ -55,7 +55,7 @@ export class ARCameraMain {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                width: {ideal: 1920}, height: {ideal: 1440},
+                width: {ideal: 1280}, height: {ideal: 960},
                 aspectRatio: { ideal: 1.333 },
                 facingMode: 'environment' }
             });
@@ -155,8 +155,6 @@ export class ARCameraMain {
 
     private async setupScreenFrameSprite(app: Application<Renderer>, texture_path: string, sprite_config: PixiSpriteConfig) {
         const texture = await Assets.load(texture_path);
-        texture.source.autoGenerateMipmaps = false;
-        texture.source.scaleMode = 'linear';
         texture.source.anisotropicLevel = 8;
         texture.update();
 
