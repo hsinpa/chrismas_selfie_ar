@@ -36,6 +36,7 @@ export class ARCameraMain {
             resizeTo: window,
             resolution: 1,
             autoDensity: true,
+            antialias: true,
             preference: 'webgl',
         });
 
@@ -43,12 +44,6 @@ export class ARCameraMain {
         this._canvas_holder.appendChild(app.canvas);
         app.canvas.style.position = 'absolute';
         app.canvas.style.zIndex = '0';
-
-        const MAX_W = 1080;
-        const MAX_H = 1920;
-        const targetW = Math.min(window.innerWidth, MAX_W);
-        const targetH = Math.min(window.innerHeight, MAX_H);
-        app.renderer.resize(targetW, targetH);
 
         await Promise.all([this.setupWebcamTexture(app),
                             // this.setupFrameVideoTexture(),
@@ -201,22 +196,30 @@ export class ARCameraMain {
         if (this._tree_camera_text != null)
             this._tree_camera_text.visible = false;
 
-        const TARGET_SHORT_SIDE = 1080;
-        let targetWidth, targetHeight, scaleFactor;
+        const targetShortSide = 1080;
+        const currentWidth = app.screen.width;
+        const resolutionMultiplier = targetShortSide / currentWidth;
 
-        scaleFactor = TARGET_SHORT_SIDE / app.screen.width;
-        targetWidth = TARGET_SHORT_SIDE;
-        targetHeight = Math.round(app.screen.height * scaleFactor);
+        // Calculate the high-res dimensions
+        const newWidth = Math.round(app.screen.width * resolutionMultiplier);
+        const newHeight = Math.round(app.screen.height * resolutionMultiplier);
 
+        // 2. Create a High-Res Container (RenderTexture)
         const rt = RenderTexture.create({ 
-            width: targetWidth, 
-            height: targetHeight 
-        });
+            width: newWidth, 
+            height: newHeight 
+        });3
+
+        // 3. Create a Transformation Matrix
+        // This tells Pixi: "When you draw to the RT, scale everything up by 2.76x"
+        const m = new Matrix();
+        m.scale(resolutionMultiplier, resolutionMultiplier);
 
         app.renderer.render({
             container: app.stage, // what to render
             target: rt,           // where to render (RenderTexture)
             clear: true,
+            transform: m
         });
 
         // Extract as base64 from the smaller RT
