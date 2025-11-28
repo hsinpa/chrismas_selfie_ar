@@ -198,31 +198,22 @@ export class ARCameraMain {
         if (this._tree_camera_text != null)
             this._tree_camera_text.visible = false;
 
-        // Compute downscale
-        const srcW = app.renderer.width;
-        const srcH = app.renderer.height;
-        const scale = Math.min(1, maxLongSide / Math.max(srcW, srcH));
-        const dstW = Math.max(1, Math.round(srcW * scale));
-        const dstH = Math.max(1, Math.round(srcH * scale));
+        const rt = RenderTexture.create({ 
+            width: app.renderer.width, 
+            height: app.renderer.height 
+        });
 
-        const rt = RenderTexture.create({ width: dstW, height: dstH });
-
-        const m = new Matrix();
-        m.scale(scale, scale);
-
-        // ✅ v8 object-form with correct keys
         app.renderer.render({
             container: app.stage, // what to render
             target: rt,           // where to render (RenderTexture)
             clear: true,
-            transform: m,
         });
 
         // Extract as base64 from the smaller RT
         const base64 = await app.renderer.extract.base64({
             target: rt,
             format: 'jpg',
-            quality: 1
+            quality: 0.95
         });
 
         // Cleanup & restore
