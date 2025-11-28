@@ -60,7 +60,7 @@ export class ARCameraMain {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 video: { 
-                width: {ideal: 1280}, height: {ideal: 960},
+                width: {ideal: 1920}, height: {ideal: 1440},
                 aspectRatio: { ideal: 1.333 },
                 facingMode: 'environment' }
             });
@@ -99,7 +99,6 @@ export class ARCameraMain {
 
         // Create texture from video element
         const videoTexture = Texture.from(video_dom);
-
         if (videoTexture.source.resource) {
              // @ts-ignore - Typescript might complain depending on version, but this property exists
              videoTexture.source.autoUpdate = true; 
@@ -163,7 +162,7 @@ export class ARCameraMain {
         const texture = await Assets.load(texture_path);
         texture.source.autoGenerateMipmaps = false;
         texture.source.scaleMode = 'linear';
-        texture.source.anisotropicLevel = 4;
+        texture.source.anisotropicLevel = 8;
         texture.update();
 
         const sprite = new Sprite(texture);
@@ -202,9 +201,16 @@ export class ARCameraMain {
         if (this._tree_camera_text != null)
             this._tree_camera_text.visible = false;
 
+        const TARGET_SHORT_SIDE = 1080;
+        let targetWidth, targetHeight, scaleFactor;
+
+        scaleFactor = TARGET_SHORT_SIDE / app.screen.width;
+        targetWidth = TARGET_SHORT_SIDE;
+        targetHeight = Math.round(app.screen.height * scaleFactor);
+
         const rt = RenderTexture.create({ 
-            width: app.renderer.width, 
-            height: app.renderer.height 
+            width: targetWidth, 
+            height: targetHeight 
         });
 
         app.renderer.render({
