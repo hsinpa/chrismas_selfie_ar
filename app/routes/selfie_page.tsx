@@ -49,11 +49,11 @@ export default function SelfiePage() {
         )}
 
         <img onClick={share_image_to_device}
-        className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+        className="w-68 max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         src={share_and_lottery_img}></img>
 
         <Link to='/'
-            className="w-auto max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
+            className="w-68 max-w-xs md:max-w-sm cursor-pointer hover:scale-105 transition-transform"
         >
             <img src={play_again_btn_img}></img>
         </Link>
