@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import front_overlay from '../assets/sprite/front_overlay.png'
 import { formatString, getRandomItem } from '~/utility/utility_func';
-import { PRIZES_STATIC } from '~/utility/prize_static';
 import { SANTA_TABLE, STYLES } from '~/component/draw_gift/style_static_data';
 
 let pre_background = "/images/03_opening_bg.jpg";

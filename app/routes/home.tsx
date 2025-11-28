@@ -1,5 +1,4 @@
 import start_btn_img from '../assets/sprite/01_btn_start.png'
-// import santa_gif from '../assets/sprite/santa.gif'
 
 import { Link } from "react-router";
 

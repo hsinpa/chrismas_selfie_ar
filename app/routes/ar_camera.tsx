@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import type { Route } from "./+types/home";
 import { ARCameraMain } from "~/component/ar_camera/ARCameraMain";
 import camera_img from '../assets/sprite/btn_camera.png'
 import { useARCameraStore } from "~/zustand/ar_camera_store";

@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import next_btn_img from '../assets/sprite/02_btn_next.png'
 import label_png from '../assets/sprite/02_label_with_text.png'
-import kv_title_v3 from '../assets/sprite/kv_title_v3.png'
 
 export default function IntroPage() {
     return (
