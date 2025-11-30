@@ -141,6 +141,7 @@ export class ARCameraMain {
         const logo_texture = await Assets.load('../images/right_corner.png');
         const logo_sprite = new Sprite(logo_texture);
         logo_sprite.zIndex = sprite_config.z_index + 10;
+        logo_sprite.scale.set(0.3);
         logo_sprite.x = app.screen.width - logo_sprite.getSize().width;
         logo_sprite.y = 0;
 
